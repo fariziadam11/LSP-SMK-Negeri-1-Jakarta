@@ -19,7 +19,7 @@ class BookingController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('bookings.index', compact('bookings'));
+        return view('bookings.create', compact('bookings'));
     }
 
     public function create(Flight $flight)

@@ -15,15 +15,18 @@ class FlightController extends Controller
 
         $flights = collect([]);
 
-        if ($request->filled(['departure', 'arrival', 'date'])) {
-            $flights = Flight::with(['airline', 'departure_airport', 'arrival_airport'])
+        if ($request->has('departure') && $request->has('arrival')) {
+            $flights = Flight::with(['airline', 'departureAirport', 'arrivalAirport'])
                 ->where('departure_airport_id', $request->departure)
                 ->where('arrival_airport_id', $request->arrival)
-                ->whereDate('departure_time', Carbon::parse($request->date))
+                ->when($request->date, function ($query) use ($request) {
+                    return $query->whereDate('departure_time', $request->date);
+                })
                 ->where('available_seats', '>=', $request->passengers ?? 1)
                 ->where('status', 'scheduled')
-                ->orderBy('departure_time')
                 ->get();
+        } else {
+            $flights = null;
         }
 
         return view('flights.search', compact('airports', 'flights'));

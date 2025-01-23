@@ -24,14 +24,18 @@ class AirlineResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
     protected static ?string $navigationGroup = 'Airline Management';
+    protected static ?string $navigationLabel = 'Airline';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('name'),
-                TextInput::make('code'),
-                FileUpload::make('logo'),
+                TextInput::make('name')
+                    ->required(),
+                TextInput::make('code')
+                    ->required(),
+                FileUpload::make('logo')
+                    ->required(),
             ]);
     }
 
@@ -39,8 +43,12 @@ class AirlineResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('code'),
+                TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('code')
+                    ->sortable()
+                    ->searchable(),
                 ImageColumn::make('logo'),
             ])
             ->filters([
@@ -48,6 +56,7 @@ class AirlineResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

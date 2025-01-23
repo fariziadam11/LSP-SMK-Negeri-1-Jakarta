@@ -35,7 +35,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     // Flights & Bookings
     Route::get('/flights/search', [FlightController::class, 'search'])->name('flights.search');
+    Route::get('/bookings/create/{flight}', [BookingController::class, 'create'])->name('bookings.create');
+    Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
     Route::resource('bookings', BookingController::class);
+    // Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
 
     // Dashboard (with email verification)
     Route::middleware(['verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

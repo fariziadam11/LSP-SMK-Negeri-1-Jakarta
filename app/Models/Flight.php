@@ -16,13 +16,19 @@ class Flight extends Model
         'airline_id',
         'departure_airport_id',
         'arrival_airport_id',
+        'flight_number',
         'departure_time',
         'arrival_time',
         'price',
         'capacity',
         'available_seats',
-        'status',
-        'flight_number',
+        'status'
+    ];
+
+    protected $casts = [
+        'departure_time' => 'datetime',
+        'arrival_time' => 'datetime',
+        'price' => 'decimal:2'
     ];
 
     // Relasi ke Airlines (Many-to-One)

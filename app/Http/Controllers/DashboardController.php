@@ -25,8 +25,8 @@ class DashboardController extends Controller
             ->where('status', 'confirmed')
             ->sum('total_amount');
 
-        $recentBookings = Booking::with(['flight.airline', 'flight.departure_airport', 'flight.arrival_airport'])
-            ->where('user_id', $userId)
+        $recentBookings = Booking::with(['flight.airline', 'flight.departureAirport', 'flight.arrivalAirport'])
+            ->where('user_id', auth()->id())
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();

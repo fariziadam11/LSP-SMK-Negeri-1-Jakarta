@@ -62,9 +62,11 @@
                 <div class="p-6">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-4">
-                            <img src="{{ $flight->airline->logo }}" alt="{{ $flight->airline->name }}" class="h-10 w-10 object-contain">
+                            <img src="{{ asset('storage/' . ($flight->airline->logo ?? 'images/default-airline.png')) }}"
+                            alt="{{ $flight->airline->name ?? 'Airline' }}"
+                            class="h-10 w-10 object-contain">
                             <div>
-                                <div class="text-sm font-medium text-gray-900">{{ $flight->airline->name }}</div>
+                                <div class="text-sm font-medium text-gray-900">{{ $flight->airline->name ?? 'Unknown Airline' }}</div>
                                 <div class="text-sm text-gray-500">Flight {{ $flight->flight_number }}</div>
                             </div>
                         </div>
@@ -83,7 +85,7 @@
                                     </svg>
                                 </div>
                                 <div class="ml-3">
-                                    <p class="text-sm font-medium text-gray-900">{{ $flight->departure_airport->city }}</p>
+                                    <p class="text-sm font-medium text-gray-900">{{ $flight->departureAirport->city ?? 'Unknown City' }}</p>
                                     <p class="text-sm text-gray-500">{{ $flight->departure_time->format('H:i') }}</p>
                                 </div>
                             </div>
@@ -96,7 +98,7 @@
                                     </svg>
                                 </div>
                                 <div class="ml-3">
-                                    <p class="text-sm font-medium text-gray-900">{{ $flight->arrival_airport->city }}</p>
+                                    <p class="text-sm font-medium text-gray-900">{{ $flight->arrivalAirport->city ?? 'Unknown City' }}</p>
                                     <p class="text-sm text-gray-500">{{ $flight->arrival_time->format('H:i') }}</p>
                                 </div>
                             </div>

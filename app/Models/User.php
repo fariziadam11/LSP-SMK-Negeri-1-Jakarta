@@ -45,4 +45,9 @@ class User extends Authenticatable // Tambahkan implements FilamentUser di sini
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    protected function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

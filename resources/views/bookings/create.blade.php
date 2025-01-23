@@ -1,4 +1,4 @@
-    @extends('components.app')
+@extends('components.app')
 
     @section('title', 'Book Flight')
 
