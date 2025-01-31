@@ -15,7 +15,7 @@
                     <div class="flex">
                         <!-- Logo -->
                         <div class="flex-shrink-0 flex items-center">
-                            <span class="text-2xl font-bold text-blue-600">FlyEasy</span>
+                            <span class="text-2xl font-bold text-blue-600">OkFly</span>
                         </div>
 
                         <!-- Navigation Links -->

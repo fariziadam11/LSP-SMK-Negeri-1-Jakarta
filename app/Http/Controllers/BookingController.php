@@ -24,7 +24,12 @@ class BookingController extends Controller
 
     public function create(Flight $flight)
     {
-        $flight->load(['airline', 'departureAirport', 'arrivalAirport']); // BENAR
+        $flight->load([
+            'airline',
+            'departureAirport',
+            'arrivalAirport'
+        ]);
+
         return view('bookings.create', compact('flight'));
     }
 
@@ -86,7 +91,6 @@ class BookingController extends Controller
 
             return redirect()->route('bookings.show', $booking)
                 ->with('success', 'Booking created successfully. Please complete the payment.');
-
         } catch (\Exception $e) {
             DB::rollback();
             return back()->withErrors(['message' => 'An error occurred while processing your booking.']);

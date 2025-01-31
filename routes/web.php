@@ -18,11 +18,10 @@ use App\Http\Controllers\Auth\RegisterController;
     Route::post('/login', [LoginController::class, 'login']);
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register']);
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::redirect('/admin/login', '/login');
 
 // Hapus route admin ini karena Filament sudah menanganinya
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -35,8 +34,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     // Flights & Bookings
     Route::get('/flights/search', [FlightController::class, 'search'])->name('flights.search');
-    Route::get('/bookings/create/{flight}', [BookingController::class, 'create'])->name('bookings.create');
-    Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    // Route::get('/bookings/create/{flight}', [BookingController::class, 'create'])->name('bookings.create');
+    // Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
     Route::resource('bookings', BookingController::class);
     // Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
 
