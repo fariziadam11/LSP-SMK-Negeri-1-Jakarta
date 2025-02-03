@@ -39,7 +39,7 @@
                     <!-- Passengers -->
                     <div>
                         <label for="passengers" class="block text-sm font-medium text-gray-700">Passengers</label>
-                        <input type="number" name="passengers" id="passengers" min="1" value="1" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        <input type="number" name="passengers" id="passengers" min="1" value="{{ old('passengers', 1) }}" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                     </div>
                 </div>
 

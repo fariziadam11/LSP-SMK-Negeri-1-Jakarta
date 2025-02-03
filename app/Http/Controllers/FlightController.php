@@ -22,12 +22,14 @@ class FlightController extends Controller
                 ->when($request->date, function ($query) use ($request) {
                     return $query->whereDate('departure_time', $request->date);
                 })
-                ->where('available_seats', '>=', $request->passengers ?? 1)
+                ->where('available_seats', '>=', (int) $request->passengers)
                 ->where('status', 'scheduled')
                 ->get();
         } else {
             $flights = null;
         }
+        // dd($request->all());
+
 
         return view('flights.search', compact('airports', 'flights'));
     }
