@@ -22,7 +22,9 @@ class Flight extends Model
         'price',
         'capacity',
         'available_seats',
-        'status'
+        'status',
+        'created_at',
+        'updated_at'
     ];
 
     protected $casts = [

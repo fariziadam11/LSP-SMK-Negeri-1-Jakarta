@@ -10,5 +10,7 @@
     <div class="min-h-screen bg-gray-100">
         {{ $slot }}
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

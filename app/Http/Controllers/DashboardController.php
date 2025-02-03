@@ -28,8 +28,7 @@ class DashboardController extends Controller
         $recentBookings = Booking::with(['flight.airline', 'flight.departureAirport', 'flight.arrivalAirport'])
             ->where('user_id', auth()->id())
             ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
+            ->paginate(10); // Menambahkan paginasi
 
         return view('dashboard', compact(
             'upcomingFlights',

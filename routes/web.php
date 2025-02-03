@@ -32,12 +32,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 // Protected routes
 Route::middleware(['auth'])->group(function () {
-    // Flights & Bookings
     Route::get('/flights/search', [FlightController::class, 'search'])->name('flights.search');
-    // Route::get('/bookings/create/{flight}', [BookingController::class, 'create'])->name('bookings.create');
-    // Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
-    Route::resource('bookings', BookingController::class);
-    // Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+    Route::get('/flights/{flight}', [FlightController::class, 'show'])->name('flights.show');
+
+    Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
+    Route::get('/bookings/create/{flight}', [BookingController::class, 'create'])->name('bookings.create');
+    Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    Route::get('/bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+    Route::patch('/bookings/{booking}', [BookingController::class, 'update'])->name('bookings.update');
 
     // Dashboard (with email verification)
     Route::middleware(['verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

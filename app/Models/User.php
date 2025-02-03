@@ -24,6 +24,9 @@ class User extends Authenticatable // Tambahkan implements FilamentUser di sini
         'phone_number',
         'address',
         'role',
+        'title',
+        'booking_id',
+        'id_card_number',
     ];
 
     /**

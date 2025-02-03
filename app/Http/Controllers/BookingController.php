@@ -3,99 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Models\Flight;
+use App\Models\Airport;
 use App\Models\Booking;
 use App\Models\Payment;
 use App\Models\Passenger;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
 {
-    public function index()
-    {
-        $bookings = Booking::with(['flight.airline', 'flight.departure_airport', 'flight.arrival_airport'])
-            ->where('user_id', auth()->id())
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-
-        return view('bookings.create', compact('bookings'));
-    }
-
-    public function create(Flight $flight)
-    {
-        $flight->load([
-            'airline',
-            'departureAirport',
-            'arrivalAirport'
-        ]);
-
-        return view('bookings.create', compact('flight'));
-    }
-
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'flight_id' => 'required|exists:flights,id',
-            'passengers' => 'required|array|min:1',
-            'passengers.*.title' => 'required|in:Mr,Mrs,Ms',
-            'passengers.*.name' => 'required|string|max:255',
-            'passengers.*.id_card_number' => 'required|string|max:50',
-            'payment_method' => 'required|in:credit_card,bank_transfer,e_wallet',
+            'payment_method' => 'required|string',
         ]);
 
         $flight = Flight::findOrFail($request->flight_id);
-        $totalPassengers = count($request->passengers);
+        $user = auth()->user();
 
-        if ($flight->available_seats < $totalPassengers) {
+        // dd($flight, $user);
+
+        if ($flight->available_seats < 1) {
             return back()->withErrors(['message' => 'Not enough seats available.']);
         }
 
         try {
             DB::beginTransaction();
 
-            // Create booking
+            // Create booking directly confirmed without payment
             $booking = Booking::create([
-                'user_id' => auth()->id(),
+                'user_id' => $user->id,
                 'flight_id' => $flight->id,
                 'booking_code' => 'BK' . Str::upper(Str::random(6)),
                 'booking_date' => now(),
-                'total_passengers' => $totalPassengers,
-                'total_amount' => $flight->price * $totalPassengers,
-                'status' => 'pending',
-                'payment_status' => 'unpaid',
-            ]);
-
-            // Create passengers
-            foreach ($request->passengers as $passengerData) {
-                Passenger::create([
-                    'booking_id' => $booking->id,
-                    'title' => $passengerData['title'],
-                    'name' => $passengerData['name'],
-                    'id_card_number' => $passengerData['id_card_number'],
-                ]);
-            }
-
-            // Create payment
-            Payment::create([
-                'booking_id' => $booking->id,
-                'payment_method' => $request->payment_method,
-                'amount' => $booking->total_amount,
-                'status' => 'pending',
+                'total_passengers' => 1,
+                'total_amount' => $flight->price,
+                'status' => 'pending', // Directly confirmed
+                'payment_status' => 'paid', // Assume already paid
             ]);
 
             // Update available seats
-            $flight->decrement('available_seats', $totalPassengers);
+            $flight->decrement('available_seats', 1);
 
             DB::commit();
 
             return redirect()->route('bookings.show', $booking)
-                ->with('success', 'Booking created successfully. Please complete the payment.');
+                ->with('success', 'Booking confirmed successfully.');
         } catch (\Exception $e) {
             DB::rollback();
+            Log::error('Booking error: ' . $e->getMessage());
             return back()->withErrors(['message' => 'An error occurred while processing your booking.']);
         }
     }
+
 
     public function show(Booking $booking)
     {
@@ -103,8 +67,13 @@ class BookingController extends Controller
             abort(403);
         }
 
-        $booking->load(['flight.airline', 'flight.departure_airport', 'flight.arrival_airport', 'passengers', 'payment']);
-        return view('bookings.show', compact('booking'));
+        $booking->load(['flight.airline', 'flight.departureAirport', 'flight.arrivalAirport', 'payment']);
+
+        // Ambil semua data airport
+        $airports = Airport::all();
+
+        return view('flights.search', compact('booking', 'airports'))
+            ->with('success', 'Booking details loaded successfully!');
     }
 
     public function update(Request $request, Booking $booking)

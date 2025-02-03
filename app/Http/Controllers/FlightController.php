@@ -32,6 +32,7 @@ class FlightController extends Controller
         return view('flights.search', compact('airports', 'flights'));
     }
 
+
     public function show(Flight $flight)
     {
         $flight->load(['airline', 'departure_airport', 'arrival_airport']);
