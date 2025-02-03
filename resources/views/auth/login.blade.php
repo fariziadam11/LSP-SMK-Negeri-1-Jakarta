@@ -14,8 +14,13 @@
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-white py-8 px-4 shadow-xl rounded-lg sm:px-10">
+                @if (session('success'))
+                    <div class="mb-4 text-sm font-medium text-green-600">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <form class="space-y-6" action="{{ route('login') }}" method="POST">
-                    @csrf
+                    @csrfd
 
                     <!-- Email -->
                     <div>

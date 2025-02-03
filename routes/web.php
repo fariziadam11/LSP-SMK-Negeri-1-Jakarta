@@ -21,8 +21,6 @@ use App\Http\Controllers\Auth\RegisterController;
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
-
-
 // Hapus route admin ini karena Filament sudah menanganinya
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/login', function () {
