@@ -2,25 +2,19 @@
 
 namespace App\Filament\Resources;
 
+use App\Models\{User, Flight, Booking};
 use Filament\Forms;
-use App\Models\User;
 use Filament\Tables;
-use App\Models\Flight;
-use App\Models\Booking;
+use Filament\Resources\Resource;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\{Select, TextInput, DateTimePicker};
 use App\Filament\Resources\BookingResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\BookingResource\RelationManagers;
 
 class BookingResource extends Resource
 {
     protected static ?string $model = Booking::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-ticket';
     protected static ?string $navigationGroup = 'Airline Management';
 
@@ -28,35 +22,35 @@ class BookingResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
+                Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required()
                     ->searchable(),
-                Forms\Components\Select::make('flight_id')
+                Select::make('flight_id')
                     ->relationship('flight', 'flight_number')
                     ->required()
                     ->searchable(),
-                Forms\Components\TextInput::make('booking_code')
+                TextInput::make('booking_code')
                     ->required()
                     ->maxLength(50)
                     ->unique(ignoreRecord: true),
-                Forms\Components\DateTimePicker::make('booking_date')
+                DateTimePicker::make('booking_date')
                     ->required(),
-                Forms\Components\TextInput::make('total_passengers')
+                TextInput::make('total_passengers')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('total_amount')
+                TextInput::make('total_amount')
                     ->required()
                     ->numeric()
                     ->prefix('Rp'),
-                Forms\Components\Select::make('status')
+                Select::make('status')
                     ->options([
                         'pending' => 'Pending',
                         'confirmed' => 'Confirmed',
                         'cancelled' => 'Cancelled',
                     ])
                     ->required(),
-                Forms\Components\Select::make('payment_status')
+                Select::make('payment_status')
                     ->options([
                         'unpaid' => 'Unpaid',
                         'paid' => 'Paid',
@@ -125,7 +119,7 @@ class BookingResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // Define relations here
         ];
     }
 
