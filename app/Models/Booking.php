@@ -20,6 +20,7 @@ class Booking extends Model
         'total_amount',
         'status',
         'payment_status',
+        'departure_time',
     ];
 
     public function flight()
