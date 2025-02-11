@@ -1,130 +1,99 @@
 <x-guest-layout>
-    <div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-500 to-purple-600">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-white">
-                Create your account
-            </h2>
-            <p class="mt-2 text-center text-sm text-gray-200">
-                Or
-                <a href="{{ route('login') }}" class="font-medium text-white hover:text-gray-200 underline">
-                    sign in to your account
-                </a>
-            </p>
-        </div>
-
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="bg-white py-8 px-4 shadow-xl rounded-lg sm:px-10">
-                <form class="space-y-6" action="{{ route('register') }}" method="POST">
-                    @csrf
-
-                    <!-- Name -->
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-700">
-                            Full Name
-                        </label>
-                        <div class="mt-1">
-                            <input id="name" name="name" type="text" required
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                value="{{ old('name') }}">
-                        </div>
-                        @error('name')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Email -->
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700">
-                            Email address
-                        </label>
-                        <div class="mt-1">
-                            <input id="email" name="email" type="email" required
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                value="{{ old('email') }}">
-                        </div>
-                        @error('email')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Password -->
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700">
-                            Password
-                        </label>
-                        <div class="mt-1">
-                            <input id="password" name="password" type="password" required
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        </div>
-                        @error('password')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Confirm Password -->
-                    <div>
-                        <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
-                            Confirm Password
-                        </label>
-                        <div class="mt-1">
-                            <input id="password_confirmation" name="password_confirmation" type="password" required
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                        </div>
-                    </div>
-
-                    <!-- Phone Number -->
-                    <div>
-                        <label for="phone_number" class="block text-sm font-medium text-gray-700">
-                            Phone Number
-                        </label>
-                        <div class="mt-1">
-                            <input id="phone_number" name="phone_number" type="text" required
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                value="{{ old('phone_number') }}">
-                        </div>
-                        @error('phone_number')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Address -->
-                    <div>
-                        <label for="address" class="block text-sm font-medium text-gray-700">
-                            Address
-                        </label>
-                        <div class="mt-1">
-                            <textarea id="address" name="address" rows="3" required
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">{{ old('address') }}</textarea>
-                        </div>
-                        @error('address')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- Role Selection -->
-                    <div>
-                        <label for="role" class="block text-sm font-medium text-gray-700">
-                            Register as
-                        </label>
-                        <div class="mt-1">
-                            <select id="role" name="role" required
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
-                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                            </select>
-                        </div>
-                        @error('role')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Register
-                        </button>
-                    </div>
-                </form>
+    <div class="min-h-screen flex items-center justify-center bg-gray-100">
+        <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
+            <div class="text-center">
+                <h2 class="text-2xl font-bold text-gray-800">Create an Account</h2>
+                <p class="text-gray-600 text-sm">Sign up to get started</p>
             </div>
+
+            <form class="mt-6 space-y-4" action="{{ route('register') }}" method="POST">
+                @csrf
+
+                <!-- Full Name -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input id="name" name="name" type="text" required
+                        class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm"
+                        value="{{ old('name') }}">
+                    @error('name')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <input id="email" name="email" type="email" required
+                        class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm"
+                        value="{{ old('email') }}">
+                    @error('email')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input id="password" name="password" type="password" required
+                        class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm">
+                    @error('password')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Confirm Password -->
+                <div>
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <input id="password_confirmation" name="password_confirmation" type="password" required
+                        class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm">
+                </div>
+
+                <!-- Phone Number -->
+                <div>
+                    <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                    <input id="phone_number" name="phone_number" type="text" required
+                        class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm"
+                        value="{{ old('phone_number') }}">
+                    @error('phone_number')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Address -->
+                <div>
+                    <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
+                    <textarea id="address" name="address" rows="3" required
+                        class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm">{{ old('address') }}</textarea>
+                    @error('address')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Role Selection -->
+                <div>
+                    <label for="role" class="block text-sm font-medium text-gray-700">Register as</label>
+                    <select id="role" name="role" required
+                        class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 shadow-sm">
+                        <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
+                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                    </select>
+                    @error('role')
+                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Register Button -->
+                <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm font-semibold transition">
+                    Register
+                </button>
+            </form>
+
+            <!-- Login Link -->
+            <p class="mt-4 text-center text-sm text-gray-600">
+                Already have an account?
+                <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Sign In</a>
+            </p>
         </div>
     </div>
 </x-guest-layout>

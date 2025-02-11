@@ -14,6 +14,10 @@ use App\Http\Controllers\Auth\RegisterController;
 */
 
 // Authentication Routes
+Route::get('/', function () {
+    return redirect('/login');
+});
+
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
