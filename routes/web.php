@@ -12,7 +12,9 @@ use App\Http\Controllers\Auth\RegisterController;
 | Web Routes
 |--------------------------------------------------------------------------
 */
-
+Route::get('/', function () {
+    return redirect('/login');
+});
 // Authentication Routes
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);

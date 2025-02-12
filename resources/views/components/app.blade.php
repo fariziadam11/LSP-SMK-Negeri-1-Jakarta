@@ -14,7 +14,7 @@
                 <div class="flex justify-between items-center h-16">
                     <!-- Logo -->
                     <div class="flex items-center">
-                        <span class="text-2xl font-bold text-blue-600">OkFly</span>
+                        <span class="text-2xl font-bold text-blue-600">1024 AIR</span>
                     </div>
 
                     <!-- Navigation Links -->
